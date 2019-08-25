@@ -81,8 +81,22 @@ def huffman_encoding(data):
 
     return string, encodings
 
-# def huffman_decoding(data,tree):
-#     pass
+def huffman_decoding(data,tree):
+    new_tree = dict([(value, key) for key, value in tree.items()])
+
+    string = ""
+
+    current = ""
+    for char in data:
+        current += char
+
+        if current in new_tree:
+            string += new_tree[current]
+            current = ""
+
+    return string, tree
+
+
 
 # if __name__ == "__main__":
 #     codes = {}
@@ -103,7 +117,8 @@ print ("The content of the encoded data is: {}\n".format(encoded_data))
 
 
 print ("The compression ratio is {}".format(post_size/pre_size * 100))
-#     decoded_data = huffman_decoding(encoded_data, tree)
 
-#     print ("The size of the decoded data is: {}\n".format(sys.getsizeof(decoded_data)))
-#     print ("The content of the encoded data is: {}\n".format(decoded_data))
+decoded_data = huffman_decoding(encoded_data, tree)
+
+print ("The size of the decoded data is: {}\n".format(getsizeof(decoded_data)))
+print ("The content of the encoded data is: {}\n".format(decoded_data))
