@@ -9,43 +9,75 @@
 
 # Use your knowledge of linked lists and hashing to create a blockchain
 # implementation.
-
+import time
 import hashlib
-
-# We can break the blockchain down into three main parts.
-
-# First is the information hash:
-
-
-def calc_hash(self):
-    sha = hashlib.sha256()
-
-    hash_str = "We are going to encode this string of data!".encode('utf-8')
-
-    sha.update(hash_str)
-
-    return sha.hexdigest()
 
 # We do this for the information we want to store in the block chain such as
 # transaction time, data, and information like the previous chain.
 
-# The next main component is the block on the blockchain:
-
-
 class Block:
 
-    def __init__(self, timestamp, data, previous_hash):
+    def __init__(self, timestamp, data, previous):
         self.timestamp = timestamp
         self.data = data
-        self.previous_hash = previous_hash
+        self.previous_hash = previous.hash
+        self.previous = previous
+
         self.hash = self.calc_hash()
 
+    def calc_hash(self):
+        sha = hashlib.sha256()
 
-# Above is an example of attributes you could find in a Block class.
+        hash_str = ""
+        hash_str += self.data
+        hash_str += str(self.timestamp)
+        hash_str += self.previous_hash
+        hash_str = hash_str.encode('utf-8')
 
-# Finally you need to link all of this together in a block chain, which you
-# will be doing by implementing it in a linked list. All of this will help you
-# build up to a simple but full blockchain implementation!
+        sha.update(hash_str)
 
+        return sha.hexdigest()
 
+    def __repr__(self):
+        return f"{str(int(self.timestamp * 100) / 100)}\t{self.hash}\t{self.previous_hash}\t{self.data}"
 
+class DummyBlock(Block):
+    def __init__(self):
+        self.timestamp = time.time()
+        self.data = "I am Groot"
+        self.previous_hash = "DummyHashDummyHashDummyHashDummyHashDummyHashDummyHashDummyHashD"
+        self.previous = None
+        self.hash = self.calc_hash()
+
+class BlockChain(object):
+
+    def __init__(self):
+        self.tail = DummyBlock()
+        self.size = 1
+
+    def append(self, data):
+        old = self.tail
+        new = Block(time.time(), data, old)
+        self.tail = new
+        self.size += 1
+
+    def __repr__(self):
+        str = ""
+        block = self.tail
+        while block:
+            str += block.__repr__() + "\n"
+            block = block.previous
+        return str
+
+chain = BlockChain()
+
+chain.append("Rocket")
+chain.append("Star Lord")
+chain.append("Gemorrah")
+chain.append("Drax")
+chain.append("Nebula")
+print(chain)
+assert(chain.size == 6)
+assert(chain.tail.previous_hash == chain.tail.previous.hash)
+
+print("All tests passed!")
