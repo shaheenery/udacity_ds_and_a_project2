@@ -10,8 +10,8 @@ def find_files(suffix, path):
     matches = []
 
     if os.path.isdir(path):
-      for listing in os.listdir(path):
-        matches += find_files(suffix, os.path.join(path, listing))
+      for listing in os.scandir(path):
+        matches += find_files(suffix, listing.path)
 
     elif path.endswith(suffix):
         matches.append(path)
