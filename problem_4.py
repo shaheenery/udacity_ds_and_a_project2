@@ -55,9 +55,11 @@ child.add_group(sub_child)
 parent.add_group(child)
 
 print(Group.is_user_in_group(sub_child_user, parent))
+# True
 
 print(Group.is_user_in_group("frank", parent))
+# False
 
 empty = Group("empty")
 print(Group.is_user_in_group("frank", empty))
-
+# False
