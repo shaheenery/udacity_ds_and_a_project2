@@ -113,6 +113,9 @@ print (union(linked_list_1,linked_list_2))
 # expect [3,2,4,35,6,65,21,32,9,1,11]
 print (intersection(linked_list_1,linked_list_2))
 # expect [4,6,21]
+
+
+# ***************************
 # Test case 2
 
 linked_list_3 = LinkedList()
@@ -132,6 +135,11 @@ print (union(linked_list_3,linked_list_4))
 print (intersection(linked_list_3,linked_list_4))
 # expect [3]
 
+
+# ***************************
+# Test case 3
+
+
 linked_list_5 = LinkedList()
 linked_list_6 = LinkedList()
 
@@ -147,4 +155,17 @@ for i in element_2:
 print (union(linked_list_5,linked_list_6))
 # expect [1]
 print (intersection(linked_list_5,linked_list_6))
-# expect [4]
+# expect [1]
+
+
+# ***************************
+# Test case 4
+
+
+linked_list_7 = LinkedList()
+linked_list_8 = LinkedList()
+
+print (union(linked_list_7, linked_list_8))
+# []
+print (intersection(linked_list_7, linked_list_8))
+# []
