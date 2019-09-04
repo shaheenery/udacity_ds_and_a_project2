@@ -29,6 +29,8 @@
 
 # For the current problem, you can consider the size of cache = 5.
 
+import unittest
+
 class Node:
     def __init__(self, value):
         self.value = value
@@ -112,6 +114,8 @@ class DLL:
 class LRU_Cache(object):
 
     def __init__(self, capacity):
+        if capacity < 1:
+            raise ValueError("LRU Cache size cannot be 0 or negative")
         self.capacity = capacity
         self.dict = dict()
         self.count = 0
@@ -149,19 +153,62 @@ class LRU_Cache(object):
     def __repr__(self):
         return self.list.__repr__() + "\nDict: " + self.dict.__repr__() + "\n"
 
-our_cache = LRU_Cache(5)
-our_cache.set(1, 1);
 
-our_cache.set(2, 2);
-our_cache.set(3, 3);
-our_cache.set(4, 4);
+class LRU_CacheTest(unittest.TestCase):
 
-print(our_cache.get(1))     # returns 1
-print(our_cache.get(2))     # returns 2
+    def test_normal_usage(self):
+        our_cache = LRU_Cache(5)
+        our_cache.set(1, 1);
 
-print(our_cache.get(9))     # returns -1 because 9 is not present in the cache
+        our_cache.set(2, 2);
+        our_cache.set(3, 3);
+        our_cache.set(4, 4);
 
-our_cache.set(5, 5)
-our_cache.set(6, 6)
+        self.assertEqual(our_cache.get(1), 1)
+        print(our_cache.get(1))
+        # 1
 
-print(our_cache.get(3))     # returns -1 because the cache reached it's capacity and 3 was the least recently used entry
+        self.assertEqual(our_cache.get(2), 2)
+        print(our_cache.get(2))
+        # 2
+
+        self.assertEqual(our_cache.get(9), -1)
+        print(our_cache.get(9))
+        # returns -1 because 9 is not present in the cache
+
+        our_cache.set(5, 5)
+        our_cache.set(6, 6)
+
+        self.assertEqual(our_cache.get(3), -1)
+        print(our_cache.get(3))
+        # returns -1 because the cache reached it's capacity and 3 was the least recently used entry
+
+    def test_empty(self):
+        our_cache = LRU_Cache(5)
+
+        self.assertEqual(our_cache.get(1), -1)
+        print(our_cache.get(1))
+        # -1 because cache is empty
+
+    def test_only_1(self):
+        #Test only holds one value
+        our_cache = LRU_Cache(1)
+        our_cache.set(1,1)
+        our_cache.set(2,2)
+        our_cache.set(3,3)
+        our_cache.set(4,4)
+
+        self.assertEqual(our_cache.get(1), -1)
+        print(our_cache.get(1))
+        # -1
+
+        self.assertEqual(our_cache.get(4), 4)
+        print(our_cache.get(4))
+        # 4
+
+    def test_raises_with_invalid_capacity(self):
+        with self.assertRaises(ValueError):
+            our_cache = LRU_Cache(0)
+
+if __name__ == '__main__':
+    unittest.main()
