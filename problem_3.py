@@ -49,7 +49,7 @@ def huffman_encoding(data):
     while len(pq) > 1:
         node1 = heappop(pq)
         node2 = heappop(pq)
-        print(node2, node1)
+
         combined = node1.priority + node2.priority
         internal_node = Node(combined)
         internal_node.left = node1
@@ -96,29 +96,22 @@ def huffman_decoding(data,tree):
 
     return string, tree
 
-
-
-# if __name__ == "__main__":
-#     codes = {}
-
-#     a_great_sentence = "The bird is the word"
 a_great_sentence = "Huffman coding is a data compression algorithm."
-# a_great_sentence = "aaaaaaaaaaaaaaabbbbbbbccccccddddddeeeee"
 
 pre_size = getsizeof(a_great_sentence)
 print ("The size of the data is: {}\n".format(pre_size))
 print ("The content of the data is: {}\n".format(a_great_sentence))
 
 encoded_data, tree = huffman_encoding(a_great_sentence)
-print(tree)
+
 post_size = getsizeof(int(encoded_data, base=2))
 print ("The size of the encoded data is: {}\n".format(post_size))
 print ("The content of the encoded data is: {}\n".format(encoded_data))
 
 
-print ("The compression ratio is {}".format(post_size/pre_size * 100))
+print ("The compression ratio is {}\n".format(post_size/pre_size * 100))
 
-decoded_data = huffman_decoding(encoded_data, tree)
+decoded_data, tree = huffman_decoding(encoded_data, tree)
 
-print ("The size of the decoded data is: {}\n".format(getsizeof(decoded_data)))
-print ("The content of the encoded data is: {}\n".format(decoded_data))
+print ("The size of the decoded data is: {}".format(getsizeof(decoded_data)))
+print ("The content of the decoded data is: {}\n".format(decoded_data))
