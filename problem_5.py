@@ -71,13 +71,26 @@ class BlockChain(object):
 
 chain = BlockChain()
 
+print (chain.size)
+# 1  Dummy block
+
+print (chain.tail.data)
+# I am Groot
+
 chain.append("Rocket")
 chain.append("Star Lord")
 chain.append("Gemorrah")
 chain.append("Drax")
+
+print (chain.tail.data)
+# Drax
+
 chain.append("Nebula")
-print(chain)
-assert(chain.size == 6)
-assert(chain.tail.previous_hash == chain.tail.previous.hash)
+
+print (chain.size)
+# 6
+
+print (chain.tail.previous_hash == chain.tail.previous.hash)
+# True
 
 print("All tests passed!")
