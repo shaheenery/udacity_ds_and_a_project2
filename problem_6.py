@@ -56,12 +56,43 @@ class LinkedList:
         return size
 
 def union(llist_1, llist_2):
-    # Your Solution Here
-    pass
+    both = set()
+    node = llist_1.head
+    while node:
+        both.add(node.value)
+        node = node.next
+
+    node = llist_2.head
+    while node:
+        both.add(node.value)
+        node = node.next
+
+    result = LinkedList()
+    for _ in range(len(both)):
+        result.append(both.pop())
+
+    return result
 
 def intersection(llist_1, llist_2):
-    # Your Solution Here
-    pass
+    set_1 = set()
+    set_2 = set()
+
+    node = llist_1.head
+    while node:
+        set_1.add(node.value)
+        node = node.next
+
+    node = llist_2.head
+    while node:
+        set_2.add(node.value)
+        node = node.next
+
+    inter = LinkedList()
+    for value in set_1:
+        if value in set_2:
+            inter.append(value)
+
+    return inter
 
 
 # Test case 1
@@ -79,15 +110,16 @@ for i in element_2:
     linked_list_2.append(i)
 
 print (union(linked_list_1,linked_list_2))
+# expect [3,2,4,35,6,65,21,32,9,1,11]
 print (intersection(linked_list_1,linked_list_2))
-
+# expect [4,6,21]
 # Test case 2
 
 linked_list_3 = LinkedList()
 linked_list_4 = LinkedList()
 
 element_1 = [3,2,4,35,6,65,6,4,3,23]
-element_2 = [1,7,8,9,11,21,1]
+element_2 = [1,7,8,9,11,21,1,3]
 
 for i in element_1:
     linked_list_3.append(i)
@@ -96,5 +128,23 @@ for i in element_2:
     linked_list_4.append(i)
 
 print (union(linked_list_3,linked_list_4))
+# expect [1,2,3,4,6,7,8,9,11,21,23,35,65,]
 print (intersection(linked_list_3,linked_list_4))
+# expect [3]
 
+linked_list_5 = LinkedList()
+linked_list_6 = LinkedList()
+
+element_1 = [1]
+element_2 = [1]
+
+for i in element_1:
+    linked_list_5.append(i)
+
+for i in element_2:
+    linked_list_6.append(i)
+
+print (union(linked_list_5,linked_list_6))
+# expect [1]
+print (intersection(linked_list_5,linked_list_6))
+# expect [4]
