@@ -29,9 +29,6 @@
 
 # For the current problem, you can consider the size of cache = 5.
 
-import time
-import random
-
 class Node:
     def __init__(self, value):
         self.value = value
