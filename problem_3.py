@@ -27,7 +27,7 @@ class Node(object):
         if self.priority == other.priority:
             if self.char is None:
                 return True
-            if other.char is None:
+            elif other.char is None:
                 return False
             return self.char > other.char
         return self.priority < other.priority
