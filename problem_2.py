@@ -19,4 +19,19 @@ def find_files(suffix, path):
     return matches
 
 folder = "../testdir"
+
+# Test C source files
 print (find_files(".c", folder))
+# ['../testdir/subdir3/subsubdir1/b.c', '../testdir/t1.c', '../testdir/subdir5/a.c', '../testdir/subdir1/a.c']
+
+# Test C header files
+print (find_files(".h", folder))
+# ['../testdir/subdir3/subsubdir1/b.h', '../testdir/subdir5/a.h', '../testdir/t1.h', '../testdir/subdir1/a.h']
+
+# Edge Case test with no file found
+print (find_files(".js", folder))
+# []
+
+# Edge Case test with system hidden file
+print (find_files(".gitkeep", folder))
+# ['../testdir/subdir4/.gitkeep', '../testdir/subdir2/.gitkeep']
