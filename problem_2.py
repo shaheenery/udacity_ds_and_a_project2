@@ -11,7 +11,7 @@ def find_files(suffix, path):
 
     if os.path.isdir(path):
       for listing in os.scandir(path):
-        matches += find_files(suffix, listing.path)
+        matches.extend(find_files(suffix, listing.path))
 
     elif path.endswith(suffix):
         matches.append(path)
