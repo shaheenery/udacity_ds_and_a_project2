@@ -69,28 +69,30 @@ class BlockChain(object):
             block = block.previous
         return str
 
+
+# Test 1 - Empty Blockchain
 chain = BlockChain()
 
+print(chain)
 print (chain.size)
 # 1  Dummy block
 
 print (chain.tail.data)
 # I am Groot
 
+# Test 2 - 4 Blocks in chain
 chain.append("Rocket")
 chain.append("Star Lord")
 chain.append("Gemorrah")
 chain.append("Drax")
 
-print (chain.tail.data)
+print (chain)
 # Drax
 
-chain.append("Nebula")
+# Test 3 - 10k blocks
+for _ in range(10_000):
+    chain.append("something else!")
 
-print (chain.size)
-# 6
+print(chain)
 
-print (chain.tail.previous_hash == chain.tail.previous.hash)
-# True
 
-print("All tests passed!")
