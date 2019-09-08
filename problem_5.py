@@ -53,7 +53,7 @@ class BlockChain(object):
 
     def __init__(self):
         self.tail = DummyBlock()
-        self.size = 1
+        self.size = 0
 
     def append(self, data):
         old = self.tail
@@ -62,8 +62,10 @@ class BlockChain(object):
         self.size += 1
 
     def __repr__(self):
+        if self.size == 0:
+            return "Block Chain Empty"
         str = ""
-        block = self.tail
+        block = self.tail.previous
         while block:
             str += block.__repr__() + "\n"
             block = block.previous
@@ -74,8 +76,10 @@ class BlockChain(object):
 chain = BlockChain()
 
 print(chain)
+# Block Chain Empty
+
 print (chain.size)
-# 1  Dummy block
+# 0
 
 print (chain.tail.data)
 # I am Groot
@@ -94,5 +98,3 @@ for _ in range(10_000):
     chain.append("something else!")
 
 print(chain)
-
-
