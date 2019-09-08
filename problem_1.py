@@ -210,5 +210,20 @@ class LRU_CacheTest(unittest.TestCase):
         with self.assertRaises(ValueError):
             our_cache = LRU_Cache(0)
 
+    def test_resetting_a_value(self):
+        our_cache = LRU_Cache(2)
+        our_cache.set(1, 1)
+        our_cache.set(2, 2)
+        our_cache.set(1, 10)
+
+        self.assertEqual(our_cache.get(1), 10)
+        print(our_cache.get(1))
+        # should return 10
+
+        self.assertEqual(our_cache.get(2), 2)
+        print(our_cache.get(2))
+        # should return 2
+
+
 if __name__ == '__main__':
     unittest.main()
