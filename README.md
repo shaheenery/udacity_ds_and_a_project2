@@ -10,9 +10,9 @@ Space: O(n)
 
 #### Analysis
 
-In order to achieve constant `get` and `set` performance I chose the combination of a map and a doubly-linked-list (DLL).  The map gives us a datastore capable of getting and setting in O(1) time.  The DLL, with nodes referenced by the map, allow us to add or move any item to the back of the list in O(1) time.  The DLL must maintain a reference to the current head and tail nodes for this to be possible.
+For this problem *n* is the capacity of the cache i.e. the maximum number of items we are willing to store at once.  In order to achieve constant `get` and `set` performance I chose the combination of a map and a doubly-linked-list (DLL).  The map gives us a datastore capable of getting and setting in O(1) time.  The DLL, with nodes referenced by the map, allow us to add or move any item to the back of the list in O(1) time.  The DLL must maintain a reference to the current head and tail nodes for this to be possible.
 
-The space complexity is O(n) because there must be key stored and node created in the DLL for each item in the cache.
+The space complexity is O(n) because there must be key stored and node created in the DLL for each item in the cache.  The space requirements will grow linearly with the capacity of the cache that we set when we initialize it.
 
 ------
 
@@ -75,7 +75,9 @@ Space: O(n)
 
 #### Analysis
 
-This is essentially the same problem as [number 2](#problem-4-active-directory). The time it will take increases based on how many groups are nested in the search group and how many users are in each of those groups.  You could see performance gains by using a dictionary instead of an array for group membership.  That would eliminate spending time iterating through an array of group members, but it would not help in the worst case of the user being located at the lowest decendent leaf of the tree (depending on search used, of course)
+This is essentially the same problem as [number 2](#problem-4-active-directory). In this case *n* is how many groups are nested in the searched group and how many users are in each of those groups.  The space complexity is O(n) where *n* is the number of nested groups and users in the group to be searched
+
+You could see performance gains by using a dictionary instead of an array for group membership.  That would eliminate spending time iterating through an array of group members, but it would not help in the worst case of the user being located at the lowest decendent leaf of the tree (depending on search used, of course)
 
 ### Problem 5 - Blockchain
 
@@ -108,8 +110,8 @@ Space: O(n)
 
 #### Analysis
 
-For `LinkedList.union()` the complexity is O(n) since each element in both lists must be iterated over.  I chose to use the Python `set()` as an intermediary data structure to remove duplicate values.  For a set, `add` and `pop` are O(1) operations as the internal implementation is typically a dictionary.
+For `LinkedList.union()` the time complexity is O(n) since each element in both lists must be iterated over, O(n + m).  I chose to use the Python `set()` as an intermediary data structure to remove duplicate values.  For a set, `add` and `pop` are O(1) operations as the internal implementation is typically a dictionary.  The worst case for the space complexity of `union()` is O(n) because both lists could have different values from each other requiring us to store a new linked list of size O(n + m).
 
-For `LinkedLinked.intersection()` the time and space complexity are also O(n) for the same reasons.  Both lists must be iterated over.  And even though an additional check is made for a value's inclusion in both intermediary sets, the O(1) nature of the check only ups the complexity to 2n which simplifies to O(n).
+For `LinkedLinked.intersection()` the time and space complexity are also O(n) for the same reasons.  Both lists must be iterated over.  And even though an additional check is made for a value's inclusion in both intermediary sets, the O(1) nature of the check only ups the complexity to 2n which simplifies to O(n).  The worst case for space for `intersection` is if list n contained all of list m (or vice versa) giving us a complexity of O(m).
 
-Without the use of an intermediary data structure with O(1) lookups e.g. iterating through list B for each item in list A, the complexity would then be O(n * n)
+Without the use of an intermediary data structure with O(1) lookups e.g. iterating through list B for each item in list A, the time complexity would then be O(n * n)
