@@ -49,15 +49,23 @@ def huffman_encoding(data):
     for char, freq in frequency.items():
         heappush(pq, Node(freq, char))
 
-    while len(pq) > 1:
+    while len(pq) > 0:
         node1 = heappop(pq)
-        node2 = heappop(pq)
 
-        combined = node1.priority + node2.priority
+        if len(pq) == 0:
+            node2 = None
+            combined = node1.priority
+        else:
+            node2 = heappop(pq)
+            combined = node1.priority + node2.priority
+
         internal_node = Node(combined)
         internal_node.left = node1
         internal_node.right = node2
         heappush(pq, internal_node)
+
+        if len(pq) == 1:
+            break;
 
     node = heappop(pq)
 
@@ -99,7 +107,6 @@ def huffman_decoding(data,tree):
 
     return string, tree
 
-
 # Test 1 - Normal sentence
 a_great_sentence = "Huffman coding is a data compression algorithm."
 
@@ -112,7 +119,6 @@ encoded_data, tree = huffman_encoding(a_great_sentence)
 post_size = getsizeof(int(encoded_data, base=2))
 print ("The size of the encoded data is: {}\n".format(post_size))
 print ("The content of the encoded data is: {}\n".format(encoded_data))
-
 
 print ("The compression ratio is {}\n".format(post_size/pre_size * 100))
 
@@ -169,6 +175,25 @@ post_size = getsizeof(int(encoded_data, base=2))
 print ("The size of the encoded data is: {}\n".format(post_size))
 print ("The content of the encoded data is: {}\n".format(encoded_data))
 
+print ("The compression ratio is {}\n".format(post_size/pre_size * 100))
+
+decoded_data, tree = huffman_decoding(encoded_data, tree)
+
+print ("The size of the decoded data is: {}".format(getsizeof(decoded_data)))
+print ("The content of the decoded data is: {}\n".format(decoded_data))
+
+# Test 5 - Character with one unique string
+one_char = "AAAAAAA"
+
+pre_size = getsizeof(one_char)
+print ("The size of the data is: {}\n".format(pre_size))
+print ("The content of the data is: {}\n".format(one_char))
+
+encoded_data, tree = huffman_encoding(one_char)
+
+post_size = getsizeof(int(encoded_data, base=2))
+print ("The size of the encoded data is: {}\n".format(post_size))
+print ("The content of the encoded data is: {}\n".format(encoded_data))
 
 print ("The compression ratio is {}\n".format(post_size/pre_size * 100))
 
