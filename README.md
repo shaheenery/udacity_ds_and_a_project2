@@ -75,7 +75,7 @@ Space: O(n)
 
 #### Analysis
 
-This is essentially the same problem as [number 2](#problem-4-active-directory). In this case *n* is how many groups are nested in the searched group and how many users are in each of those groups.  The space complexity is O(n) where *n* is the number of nested groups and users in the group to be searched
+This is essentially the same problem as [number 2](#problem-4---active-directory). In this case *n* is how many groups are nested in the searched group and how many users are in each of those groups.  The space complexity is O(n) where *n* is the number of nested groups and users in the group to be searched
 
 You could see performance gains by using a dictionary instead of an array for group membership.  That would eliminate spending time iterating through an array of group members, but it would not help in the worst case of the user being located at the lowest decendent leaf of the tree (depending on search used, of course)
 
